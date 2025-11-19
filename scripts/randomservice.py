@@ -9,7 +9,7 @@ class WeightedKeys(TypedDict):
     Chances: List[float]
 
 
-class ChoiceFunctions:
+class RandomService:
     @staticmethod
     def GetKey(weighted_keys: WeightedKeys, generator: Generator):
         return generator.choice(a=weighted_keys["Keys"], p=weighted_keys["Chances"])
