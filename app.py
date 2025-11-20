@@ -118,7 +118,7 @@ async def playlist(mood: str, limit: int):
 @verify_request
 async def next_song(user_id: str, mood: str):
     try:
-        playlist, message = await SpotifyService.get_playlist(mood, 10)
+        playlist, message = await SpotifyService.get_playlist(mood, 20)
         song_ids = [song["id"] for song in playlist]
         history: History = await HistoryService.get_history(user_id)
 
