@@ -119,7 +119,7 @@ async def playlist(mood: str, limit: int):
 async def next_song(user_id: str, mood: str):
     try:
         playlist, message = await SpotifyService.get_playlist(mood, 10)
-        song_ids = [song["Id"] for song in playlist]
+        song_ids = [song["id"] for song in playlist]
         history: History = await HistoryService.get_history(user_id)
 
         song_chances = RecommendationService.get_song_chances(history, mood, song_ids)

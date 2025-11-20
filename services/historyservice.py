@@ -5,12 +5,12 @@ from os import getenv
 
 
 class MoodHistory(TypedDict):
-    Liked: Dict[str, bool]
-    Disliked: Dict[str, bool]
-    Favorite: Dict[str, bool]
-    Skipped: Dict[str, int]
-    Finished: Dict[str, int]
-    Previous: List[str]
+    liked: Dict[str, bool]
+    disliked: Dict[str, bool]
+    favorite: Dict[str, bool]
+    skipped: Dict[str, int]
+    finished: Dict[str, int]
+    previous: List[str]
 
 
 History: TypeAlias = Dict[str, MoodHistory]
@@ -56,53 +56,53 @@ class HistoryService:
     def create():
         return {
             mood: {
-                "Liked": {},
-                "Disliked": {},
-                "Favorite": {},
-                "Skipped": {},
-                "Finished": {},
-                "Previous": [],
+                "liked": {},
+                "disliked": {},
+                "favorite": {},
+                "skipped": {},
+                "finished": {},
+                "previous": [],
             } for mood in MoodService.get_moods()
         }
 
     @staticmethod
     def add_to_previously_played(history: History, mood: str, song_id: str):
-        history[mood]["Previous"].insert(0, song_id)
-        if len(history[mood]["Previous"]) > 3:
-            history[mood]["Previous"].pop()
+        history[mood]["previous"].insert(0, song_id)
+        if len(history[mood]["previous"]) > 3:
+            history[mood]["previous"].pop()
 
     @staticmethod
     async def skip_song(user_id: str, song_id: str, mood: str):
         history: History = await HistoryService.get_history(user_id)
-        if song_id not in history[mood]["Skipped"]:
-            history[mood]["Skipped"][song_id] = 0
-        history[mood]["Skipped"][song_id] += 1
+        if song_id not in history[mood]["skipped"]:
+            history[mood]["skipped"][song_id] = 0
+        history[mood]["skipped"][song_id] += 1
         HistoryService.add_to_previously_played(history, mood, song_id)
         await HistoryService.save(user_id, history)
 
     @staticmethod
     async def finish_song(user_id: str, song_id: str, mood: str):
         history: History = await HistoryService.get_history(user_id)
-        if song_id not in history[mood]["Finished"]:
-            history[mood]["Finished"][song_id] = 0
-        history[mood]["Finished"][song_id] += 1
+        if song_id not in history[mood]["finished"]:
+            history[mood]["finished"][song_id] = 0
+        history[mood]["finished"][song_id] += 1
         HistoryService.add_to_previously_played(history, mood, song_id)
         await HistoryService.save(user_id, history)
 
     @staticmethod
     async def like_song(user_id: str, song_id: str, mood: str, like: bool):
         history: History = await HistoryService.get_history(user_id)
-        history[mood]["Liked"][song_id] = like
+        history[mood]["liked"][song_id] = like
         await HistoryService.save(user_id, history)
 
     @staticmethod
     async def dislike_song(user_id: str, song_id: str, mood: str, dislike: bool):
         history: History = await HistoryService.get_history(user_id)
-        history[mood]["Disliked"][song_id] = dislike
+        history[mood]["disliked"][song_id] = dislike
         await HistoryService.save(user_id, history)
 
     @staticmethod
     async def favorite_song(user_id: str, song_id: str, mood: str, favorite: bool):
         history: History = await HistoryService.get_history(user_id)
-        history[mood]["Favorite"][song_id] = favorite
+        history[mood]["favorite"][song_id] = favorite
         await HistoryService.save(user_id, history)

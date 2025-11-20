@@ -1,18 +1,19 @@
 from typing import List, TypeVar, TypedDict
 from numpy.random import Generator
 
+
 T = TypeVar("T")
 
 
 class WeightedKeys(TypedDict):
-    Keys: List[T]
-    Chances: List[float]
+    keys: List[T]
+    chances: List[float]
 
 
 class RandomService:
     @staticmethod
     def get_key(weighted_keys: WeightedKeys, generator: Generator):
-        return generator.choice(a=weighted_keys["Keys"], p=weighted_keys["Chances"])
+        return generator.choice(a=weighted_keys["keys"], p=weighted_keys["chances"])
 
     @staticmethod
     def normalize(chances: List[float]):

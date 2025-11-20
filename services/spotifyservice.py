@@ -10,13 +10,13 @@ Track: TypeAlias = Dict[str, Any]
 
 
 class Song(TypedDict):
-    Id: str
-    Mood: str
-    Title: str
-    Artists: List[str]
-    ImageUrl: str
-    Album: str
-    AudioUrl: str
+    id: str
+    mood: str
+    title: str
+    artists: List[str]
+    image_url: str
+    album: str
+    audio_url: str
 
 
 class SpotifyService:
@@ -65,13 +65,13 @@ class SpotifyService:
     @staticmethod
     def to_song(track: Track, mood: str) -> Song:
         return {
-            "Id": SpotifyService.get_track_id(track),
-            "Mood": MoodService.get_mood(mood),
-            "Title": SpotifyService.get_title(track),
-            "Artists": SpotifyService.get_artists(track),
-            "ImageUrl": SpotifyService.get_image_url(track),
-            "Album": SpotifyService.get_album(track),
-            "AudioUrl": SpotifyService.get_audio_url(track),
+            "id": SpotifyService.get_track_id(track),
+            "mood": MoodService.get_mood(mood),
+            "title": SpotifyService.get_title(track),
+            "artists": SpotifyService.get_artists(track),
+            "image_url": SpotifyService.get_image_url(track),
+            "album": SpotifyService.get_album(track),
+            "audio_url": SpotifyService.get_audio_url(track),
         }
 
     @staticmethod
