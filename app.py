@@ -125,8 +125,14 @@ async def next_song(user_id: str, mood: str):
         song_chances = RecommendationService.get_song_chances(history, mood, song_ids)
         song_id = RandomService.get_key(song_chances, Generator(PCG64()))
 
+        result = None
+        for song in playlist:
+            if song["id"] == song_id:
+                result = song
+                break
+
         return jsonify({
-            "result": song_id,
+            "result": result,
             "success": True,
         })
     except Exception as e:
