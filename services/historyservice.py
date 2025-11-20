@@ -68,7 +68,7 @@ class HistoryService:
     @staticmethod
     def add_to_previously_played(history: History, mood: str, song_id: str):
         history[mood]["previous"].insert(0, song_id)
-        if len(history[mood]["previous"]) > 3:
+        if len(history[mood]["previous"]) > 5:
             history[mood]["previous"].pop()
 
     @staticmethod
