@@ -28,7 +28,7 @@ async def skip_song(user_id: str, song_id: str, mood: str):
     try:
         return jsonify({
             "success": True,
-            "result": HistoryService.skip_song(user_id, song_id, mood)
+            "result": await HistoryService.skip_song(user_id, song_id, mood)
         })
     except Exception as e:
         return jsonify({
@@ -75,7 +75,7 @@ async def finish_song(user_id: str, song_id: str, mood: str):
     try:
         return jsonify({
             "success": True,
-            "result": HistoryService.finish_song(user_id, song_id, mood)
+            "result": await HistoryService.finish_song(user_id, song_id, mood)
         })
     except Exception as e:
         return jsonify({
@@ -90,7 +90,7 @@ async def like_song(user_id: str, song_id: str, mood: str, like: int):
     try:
         return jsonify({
             "success": True,
-            "result": HistoryService.like_song(user_id, song_id, mood, like == 1)
+            "result": await HistoryService.like_song(user_id, song_id, mood, like == 1)
         })
     except Exception as e:
         return jsonify({
@@ -105,7 +105,7 @@ async def dislike_song(user_id: str, song_id: str, mood: str, dislike: int):
     try:
         return jsonify({
             "success": True,
-            "result": HistoryService.dislike_song(user_id, song_id, mood, dislike == 1)
+            "result": await HistoryService.dislike_song(user_id, song_id, mood, dislike == 1)
         })
     except Exception as e:
         return jsonify({
@@ -120,7 +120,7 @@ async def favorite_song(user_id: str, song_id: str, mood: str, favorite: int):
     try:
         return jsonify({
             "success": True,
-            "result": HistoryService.favorite_song(user_id, song_id, mood, favorite == 1)
+            "result": await HistoryService.favorite_song(user_id, song_id, mood, favorite == 1)
         })
     except Exception as e:
         return jsonify({
