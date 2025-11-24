@@ -41,7 +41,7 @@ async def skip_song(user_id: str, song_id: str, mood: str):
 @verify_request
 async def search(query: str, limit: int, mood: str):
     try:
-        result, message = SpotifyService.search(query, limit, mood)
+        result, message = await SpotifyService.search(query, limit, mood)
         if message == "":
             return jsonify({
                 "success": True,
