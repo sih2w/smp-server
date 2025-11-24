@@ -37,6 +37,21 @@ async def skip_song(user_id: str, song_id: str, mood: str):
         })
 
 
+@app.route("/history/<string:key>/<string:user_id>", methods=["GET"])
+@verify_request
+async def history(user_id: str):
+    try:
+        return jsonify({
+            "success": True,
+            "result": await HistoryService.get_history(user_id),
+        })
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "result": str(e),
+        })
+
+
 @app.route("/search/<string:key>/<string:query>/<int:limit>/<string:mood>", methods=["GET"])
 @verify_request
 async def search(query: str, limit: int, mood: str):
